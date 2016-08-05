@@ -1,17 +1,24 @@
 {
-  "name": "node-routing",
+  "name": "node-routing-course",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "dependencies": {
-    "express": "^4.14.0",
-    "morgan": "~1.7.0",
-    "body-parser": "~1.15.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scotch-io/node-routing-course.git"
+  },
   "author": "",
-  "license": "MIT"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scotch-io/node-routing-course/issues"
+  },
+  "homepage": "https://github.com/scotch-io/node-routing-course#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
 }
