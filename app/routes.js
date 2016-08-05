@@ -1,41 +1,24 @@
-var express = require('express'),
-  router = express.Router(),
-  path = require('path');
+var express           = require('express'),
+  router              = express.Router(),
+  path                = require('path'),
+  siteController      = require('./controllers/site.controller'),
+  dashboardController = require('./controllers/dashboard.controller');
 
 // export the router
 module.exports = router;
-router.get('/',           showHome);
-router.get('/about',      showAbout);
-router.get('/contact',    showContact);
-router.post('/contact',   processContact);
-router.get('/@:username/:post_slug', showProfile);
-router.use(show404);
 
-function showHome(req, res) {
-  res.sendFile(path.join(__dirname, '../index.html'));
-}
+// site routes ========================
+router.get('/',           siteController.showHome);
+router.get('/about',      siteController.showAbout);
+router.get('/contact',    siteController.showContact);
+router.post('/contact',   siteController.processContact);
+router.get('/@:username/:post_slug', siteController.showProfile);
 
-function showAbout(req, res) {
-  res.json({ message: 'i am the about page' });
-}
+// dashboard routes ===================
+router.get('/dashboard', dashboardController.showDashboard);
 
-function showContact(req, res) {
-  res.sendFile(path.join(__dirname, '../contact.html'));
-}
+// api routes =========================
 
-function processContact(req, res) {
-  console.log(req.body);
-  res.send('hello ' + req.body.name + '! Nice to meet you!');
-}
+// 404 catchall
+router.use(siteController.show404);
 
-function showProfile(req, res) {
-  console.log(req.params);
-  // grab user profile
-  // grab the post
-  res.send('You are reading ' + req.params.post_slug + ' by ' + req.params.username);
-}
-
-function show404(req, res, next) {
-  res.status(404);
-  res.sendFile(path.join(__dirname, '../404.html'));
-}
