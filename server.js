@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 // route our app ==========================================
-app.use('/', require('./app/routes'));
+app.use(require('./app/routes'));
 
 // start the server =======================================
 app.listen(port, function() {

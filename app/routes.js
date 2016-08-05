@@ -1,23 +1,28 @@
-// create a router
-var express = require('express'),
-  router    = express.Router();
+// grab everything we need
+var express           = require('express'),
+  router              = express.Router(),
+  siteController      = require('./controllers/site.controller'),
+  dashboardController = require('./controllers/dashboard.controller'),
+  nameCheckMiddleware = require('./middleware/nameCheck');
 
 // export the router
 module.exports = router;
 
-// get all the controllers
-var siteController      = require('./controllers/site.controller');
-var dashboardController = require('./controllers/dashboard.controller');
+// assign routes to the router ==================================
+// normal site routes
+router.get('/',           siteController.getHome);
+router.get('/about',      siteController.getAbout);
+router.get('/contact',    siteController.getContact);
+router.post('/contact',   siteController.postContact);
 
-// apply the routes
-router
+// profile routes
+router.get('/@:username', nameCheckMiddleware, siteController.getProfile);
 
-  // normal site routes
-  .get('/', siteController.getHome)
-  .get('/about', siteController.getAbout)
-  .get('/contact', siteController.getContact)
-  .post('/contact', siteController.postContact)
+// dashboard routes
+router.get('/dashboard', dashboardController.getDashboard);
 
-  // dashboard routes
-  .get('/dashboard', dashboardController.getDashboard);
-
+// 404 catchall
+router.use(function(req, res, next) {
+  res.status(404);
+  res.send('404 Not Found');
+});

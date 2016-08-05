@@ -3,7 +3,8 @@ module.exports = {
   getHome: getHome,
   getAbout: getAbout,
   getContact: getContact,
-  postContact: postContact
+  postContact: postContact,
+  getProfile: getProfile
 };
 
 // create our route functions
@@ -20,6 +21,12 @@ function getContact(req, res) {
 }
 
 function postContact(req, res) {
-  res.json(req.body);
+  res.send(req.body);
 }
 
+function getProfile(req, res) {
+  // find the user by username
+  var username = req.params.username;
+  console.log(username);
+  res.send(username);
+}
